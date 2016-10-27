@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="phototrailsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="trackpoint">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="ubigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="trail" Type="uint" Nullable="false" />
+          <Property Name="order" Type="usmallint" Nullable="false" />
+          <Property Name="latitude" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="longitude" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="elevation" Type="smallint" />
+          <Property Name="date_time" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="trail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="duration" Type="time" Precision="0" />
+        </EntityType>
+        <Association Name="fk_trackpoint_trail_trail">
+          <End Role="trail" Type="Self.trail" Multiplicity="1" />
+          <End Role="trackpoint" Type="Self.trackpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trackpoint">
+              <PropertyRef Name="trail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="phototrailsModelStoreContainer">
+          <EntitySet Name="trackpoint" EntityType="Self.trackpoint" Schema="phototrails" store:Type="Tables" />
+          <EntitySet Name="trail" EntityType="Self.trail" Schema="phototrails" store:Type="Tables" />
+          <AssociationSet Name="fk_trackpoint_trail_trail" Association="Self.fk_trackpoint_trail_trail">
+            <End Role="trail" EntitySet="trail" />
+            <End Role="trackpoint" EntitySet="trackpoint" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="phototrailsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="trackpoint">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trail" Type="Int64" Nullable="false" />
+          <Property Name="order" Type="Int32" Nullable="false" />
+          <Property Name="latitude" Type="Decimal" Nullable="false" />
+          <Property Name="longitude" Type="Decimal" Nullable="false" />
+          <Property Name="elevation" Type="Int16" />
+          <Property Name="date_time" Type="DateTime" />
+          <NavigationProperty Name="trail1" Relationship="Self.fk_trackpoint_trail_trail" FromRole="trackpoint" ToRole="trail" />
+        </EntityType>
+        <EntityType Name="trail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="duration" Type="Time" />
+          <NavigationProperty Name="trackpoint" Relationship="Self.fk_trackpoint_trail_trail" FromRole="trail" ToRole="trackpoint" />
+        </EntityType>
+        <Association Name="fk_trackpoint_trail_trail">
+          <End Role="trail" Type="Self.trail" Multiplicity="1" />
+          <End Role="trackpoint" Type="Self.trackpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trackpoint">
+              <PropertyRef Name="trail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="phototrailsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="trackpoint" EntityType="Self.trackpoint" />
+          <EntitySet Name="trail" EntityType="Self.trail" />
+          <AssociationSet Name="fk_trackpoint_trail_trail" Association="Self.fk_trackpoint_trail_trail">
+            <End Role="trail" EntitySet="trail" />
+            <End Role="trackpoint" EntitySet="trackpoint" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="phototrailsModelStoreContainer" CdmEntityContainer="phototrailsEntities">
+          <EntitySetMapping Name="trackpoint">
+            <EntityTypeMapping TypeName="phototrailsModel.trackpoint">
+              <MappingFragment StoreEntitySet="trackpoint">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="trail" ColumnName="trail" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="elevation" ColumnName="elevation" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trail">
+            <EntityTypeMapping TypeName="phototrailsModel.trail">
+              <MappingFragment StoreEntitySet="trail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

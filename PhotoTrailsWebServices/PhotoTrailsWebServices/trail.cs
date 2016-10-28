@@ -17,7 +17,7 @@ namespace PhotoTrailsWebServices
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public trail()
         {
-            this.trackpoint = new HashSet<trackpoint>();
+            this.trackpoints = new HashSet<trackpoint>();
         }
     
         public long id { get; set; }
@@ -26,6 +26,6 @@ namespace PhotoTrailsWebServices
         public Nullable<System.TimeSpan> duration { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<trackpoint> trackpoint { get; set; }
+        public virtual ICollection<trackpoint> trackpoints { get; set; }
     }
 }

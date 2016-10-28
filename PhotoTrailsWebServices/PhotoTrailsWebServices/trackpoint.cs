@@ -15,13 +15,13 @@ namespace PhotoTrailsWebServices
     public partial class trackpoint
     {
         public decimal id { get; set; }
-        public long trail { get; set; }
+        public long trail_id { get; set; }
         public int order { get; set; }
         public decimal latitude { get; set; }
         public decimal longitude { get; set; }
         public Nullable<short> elevation { get; set; }
         public Nullable<System.DateTime> date_time { get; set; }
     
-        public virtual trail trail1 { get; set; }
+        public virtual trail trail { get; set; }
     }
 }

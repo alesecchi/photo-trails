@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="385e00057f3948b5b830e2ef44de4d53" Name="Diagram1">
-        <EntityTypeShape EntityType="phototrailsModel.trackpoint" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="phototrailsModel.trail" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="phototrailsModel.fk_trackpoint_trail_trail" ManuallyRouted="false" />
+      <Diagram DiagramId="bfeb60e85f80477fb5e291bb416ba07d" Name="Diagram1">
+        <EntityTypeShape EntityType="PhotoTrailsModel.trackpoint" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotoTrailsModel.trail" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="PhotoTrailsModel.fk_trackpoint_trail_trail" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

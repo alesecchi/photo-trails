@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="phototrailsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PhotoTrailsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="trackpoint">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="ubigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="trail" Type="uint" Nullable="false" />
+          <Property Name="trail_id" Type="uint" Nullable="false" />
           <Property Name="order" Type="usmallint" Nullable="false" />
           <Property Name="latitude" Type="decimal" Precision="8" Scale="6" Nullable="false" />
           <Property Name="longitude" Type="decimal" Precision="9" Scale="6" Nullable="false" />
@@ -34,11 +34,11 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="trackpoint">
-              <PropertyRef Name="trail" />
+              <PropertyRef Name="trail_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="phototrailsModelStoreContainer">
+        <EntityContainer Name="PhotoTrailsModelStoreContainer">
           <EntitySet Name="trackpoint" EntityType="Self.trackpoint" Schema="phototrails" store:Type="Tables" />
           <EntitySet Name="trail" EntityType="Self.trail" Schema="phototrails" store:Type="Tables" />
           <AssociationSet Name="fk_trackpoint_trail_trail" Association="Self.fk_trackpoint_trail_trail">
@@ -50,19 +50,19 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="phototrailsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="PhotoTrailsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="trackpoint">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Decimal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="trail" Type="Int64" Nullable="false" />
+          <Property Name="trail_id" Type="Int64" Nullable="false" />
           <Property Name="order" Type="Int32" Nullable="false" />
           <Property Name="latitude" Type="Decimal" Nullable="false" />
           <Property Name="longitude" Type="Decimal" Nullable="false" />
           <Property Name="elevation" Type="Int16" />
           <Property Name="date_time" Type="DateTime" />
-          <NavigationProperty Name="trail1" Relationship="Self.fk_trackpoint_trail_trail" FromRole="trackpoint" ToRole="trail" />
+          <NavigationProperty Name="trail" Relationship="Self.fk_trackpoint_trail_trail" FromRole="trackpoint" ToRole="trail" />
         </EntityType>
         <EntityType Name="trail">
           <Key>
@@ -72,22 +72,22 @@
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="duration" Type="Time" />
-          <NavigationProperty Name="trackpoint" Relationship="Self.fk_trackpoint_trail_trail" FromRole="trail" ToRole="trackpoint" />
+          <NavigationProperty Name="trackpoints" Relationship="Self.fk_trackpoint_trail_trail" FromRole="trail" ToRole="trackpoint" />
         </EntityType>
         <Association Name="fk_trackpoint_trail_trail">
           <End Role="trail" Type="Self.trail" Multiplicity="1" />
-          <End Role="trackpoint" Type="Self.trackpoint" Multiplicity="*" />
+          <End Role="trackpoint" Type="PhotoTrailsModel.trackpoint" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="trail">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="trackpoint">
-              <PropertyRef Name="trail" />
+              <PropertyRef Name="trail_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="phototrailsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="trackpoint" EntityType="Self.trackpoint" />
+          <EntitySet Name="trackpoint" EntityType="PhotoTrailsModel.trackpoint" />
           <EntitySet Name="trail" EntityType="Self.trail" />
           <AssociationSet Name="fk_trackpoint_trail_trail" Association="Self.fk_trackpoint_trail_trail">
             <End Role="trail" EntitySet="trail" />
@@ -99,12 +99,12 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="phototrailsModelStoreContainer" CdmEntityContainer="phototrailsEntities">
+        <EntityContainerMapping StorageEntityContainer="PhotoTrailsModelStoreContainer" CdmEntityContainer="phototrailsEntities">
           <EntitySetMapping Name="trackpoint">
-            <EntityTypeMapping TypeName="phototrailsModel.trackpoint">
+            <EntityTypeMapping TypeName="PhotoTrailsModel.trackpoint">
               <MappingFragment StoreEntitySet="trackpoint">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="trail" ColumnName="trail" />
+                <ScalarProperty Name="trail_id" ColumnName="trail_id" />
                 <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="latitude" ColumnName="latitude" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
@@ -114,7 +114,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="trail">
-            <EntityTypeMapping TypeName="phototrailsModel.trail">
+            <EntityTypeMapping TypeName="PhotoTrailsModel.trail">
               <MappingFragment StoreEntitySet="trail">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />

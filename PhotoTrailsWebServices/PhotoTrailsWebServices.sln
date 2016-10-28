@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoTrailsWebServices", "PhotoTrailsWebServices\PhotoTrailsWebServices.csproj", "{EDD1ABA6-DCA0-46BD-84B3-CA98E3249A13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoTrailsWebServicesTest", "PhotoTrailsWebServicesTest\PhotoTrailsWebServicesTest.csproj", "{B195EC72-837C-49A3-B11D-3E341F626B96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EDD1ABA6-DCA0-46BD-84B3-CA98E3249A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD1ABA6-DCA0-46BD-84B3-CA98E3249A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD1ABA6-DCA0-46BD-84B3-CA98E3249A13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B195EC72-837C-49A3-B11D-3E341F626B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B195EC72-837C-49A3-B11D-3E341F626B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B195EC72-837C-49A3-B11D-3E341F626B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B195EC72-837C-49A3-B11D-3E341F626B96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

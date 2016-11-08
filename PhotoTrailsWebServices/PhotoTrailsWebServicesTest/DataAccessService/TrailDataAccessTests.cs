@@ -1,40 +1,118 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PhotoTrailsWebServicesTest.DataAccessService;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PhotoTrailsWebServices.DataAccessService.Tests
 {
     [TestClass()]
     public class TrailDataAccessTests
     {
-        [TestMethod()]
-        public void GetAllTrails_OrderByName()
+        private IQueryable<trail> TrailData { get; set; }
+
+        private Mock<phototrailsEntities> MockContext { get; set; }
+
+        [TestInitialize]
+        public void Initialize()
         {
-            var data = new List<trail>
+            TrailData = new List<trail>
             {
-                new trail { id=1, name="AAA" },
-                new trail { id=1, name="ZZZ" },
-                new trail { id=1, name="BBB" }
+                new trail { id=1, name="BBB", description="BBB description" },
+                new trail { id=2, name="ZZZ", description="ZZZ description" },
+                new trail { id=3, name="AAA", description="AAA description" }
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<trail>>();
-            mockSet.As<IQueryable<trail>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<trail>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<trail>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<trail>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mockSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids => TrailData.FirstOrDefault(t => t.id == (long)ids[0]));
+            mockSet.Setup(m => m.FindAsync(It.IsAny<object[]>())).Returns<object[]>(ids => Task.FromResult(TrailData.FirstOrDefault(t => t.id == (long)ids[0])));
+            mockSet.As<IDbAsyncEnumerable<trail>>()
+                .Setup(m => m.GetAsyncEnumerator())
+                .Returns(new TestDbAsyncEnumerator<trail>(TrailData.GetEnumerator()));
+            mockSet.As<IQueryable<trail>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestDbAsyncQueryProvider<trail>(TrailData.Provider));
+            mockSet.As<IQueryable<trail>>().Setup(m => m.Expression).Returns(TrailData.Expression);
+            mockSet.As<IQueryable<trail>>().Setup(m => m.ElementType).Returns(TrailData.ElementType);
+            mockSet.As<IQueryable<trail>>().Setup(m => m.GetEnumerator()).Returns(TrailData.GetEnumerator());
 
-            var mockContext = new Mock<phototrailsEntities>();
-            mockContext.Setup(c => c.trail).Returns(mockSet.Object);
+            MockContext = new Mock<phototrailsEntities>();
+            MockContext.Setup(c => c.trail).Returns(mockSet.Object);
+        }
 
-            TrailDataAccess trailDataAccess = new TrailDataAccess(mockContext.Object);
+        [TestMethod()]
+        public void TrailByIdNotFound()
+        {
+            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            var trail = trailDataAccess.GetTrailById(10000);
+
+            Assert.IsNull(trail);
+        }
+
+        [TestMethod()]
+        public async Task TrailByIdAsyncNotFound()
+        {
+            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            var trail = await trailDataAccess.GetTrailByIdAsync(10000);
+
+            Assert.IsNull(trail);
+        }
+
+        [TestMethod()]
+        public void GetTrailById()
+        {
+            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            var trail = trailDataAccess.GetTrailById(2);
+
+            Assert.IsNotNull(trail);
+            Assert.AreEqual(2, trail.id);
+            Assert.AreEqual("ZZZ", trail.name);
+            Assert.AreEqual("ZZZ description", trail.description);
+        }
+
+        [TestMethod()]
+        public async Task GetTrailByIdAsync()
+        {
+            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            var trail = await trailDataAccess.GetTrailByIdAsync(2);
+
+            Assert.IsNotNull(trail);
+            Assert.AreEqual(2, trail.id);
+            Assert.AreEqual("ZZZ", trail.name);
+            Assert.AreEqual("ZZZ description", trail.description);
+        }
+
+        [TestMethod()]
+        public void GetAllTrails_OrderByName()
+        {
+            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trails = trailDataAccess.GetAllTrails();
 
             Assert.AreEqual(3, trails.Count);
             Assert.AreEqual("AAA", trails[0].name);
+            Assert.AreEqual(3, trails[0].id);
             Assert.AreEqual("BBB", trails[1].name);
+            Assert.AreEqual(1, trails[1].id);
             Assert.AreEqual("ZZZ", trails[2].name);
+            Assert.AreEqual(2, trails[2].id);
+        }
+
+        [TestMethod()]
+        public async Task GetAllTrailsAsync_OrderByName()
+        {
+            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            var trails = await trailDataAccess.GetAllTrailsAsync();
+
+            Assert.AreEqual(3, trails.Count);
+            Assert.AreEqual("AAA", trails[0].name);
+            Assert.AreEqual(3, trails[0].id);
+            Assert.AreEqual("BBB", trails[1].name);
+            Assert.AreEqual(1, trails[1].id);
+            Assert.AreEqual("ZZZ", trails[2].name);
+            Assert.AreEqual(2, trails[2].id);
         }
     }
 }

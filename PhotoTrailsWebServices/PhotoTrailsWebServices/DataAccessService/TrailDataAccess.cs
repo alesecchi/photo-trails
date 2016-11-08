@@ -31,5 +31,15 @@ namespace PhotoTrailsWebServices.DataAccessService
                         select trail;
             return await query.ToListAsync();
         }
+
+        public trail GetTrailById(long id)
+        {
+            return _context.trail.Find(id);
+        }
+
+        public async Task<trail> GetTrailByIdAsync(long id)
+        {
+            return await _context.trail.FindAsync(id);
+        }
     }
 }

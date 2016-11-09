@@ -9,7 +9,7 @@ namespace PhotoTrailsWebServices.DataAccessService
 {
     public class TrailDataAccess
     {
-        private phototrailsEntities _context;
+        private readonly phototrailsEntities _context;
 
         public TrailDataAccess(phototrailsEntities context)
         {

@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using PhotoTrailsWebServices.DataTransferObject;
+using AutoMapper;
 
 namespace PhotoTrailsWebServices
 {
@@ -14,9 +15,20 @@ namespace PhotoTrailsWebServices
     // NOTA: per avviare il client di prova WCF per testare il servizio, selezionare Service1.svc o Service1.svc.cs in Esplora soluzioni e avviare il debug.
     public class PhotoTrailsService : IPhotoTrailsService
     {
+        /// <summary>
+        /// Il metodo viene chiamato automaticamente quando il servizio viene avviato.
+        /// Contiene il codice per configurare il servizio allo startup.
+        /// </summary>
+        /// <param name="config"></param>
+        public static void Configure(ServiceConfiguration config)
+        {
+            config.LoadFromConfiguration();
+            Mapper.Initialize(cfg => cfg.CreateMap<trail, TrailDTO>());
+        }
+
         public List<TrailDTO> GetAllTrails()
         {
-            throw new NotImplementedException();
+            return new List<TrailDTO>();
         }
 
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using PhotoTrailsWebServices.DataTransferObject;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -32,9 +34,11 @@ namespace PhotoTrailsWebServices.DataAccessService
             return await query.ToListAsync();
         }
 
-        public trail GetTrailById(long id)
+        public TrailDTO GetTrailById(long id)
         {
-            return _context.trail.Find(id);
+            trail trail = _context.trail.Find(id);
+            IMapper mapper = Mapper.Configuration.CreateMapper();
+            return mapper.Map<TrailDTO>(trail);
         }
 
         public async Task<trail> GetTrailByIdAsync(long id)

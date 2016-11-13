@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AutoMapper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PhotoTrailsWebServices.DataTransferObject;
 using PhotoTrailsWebServicesTest.DataAccessService;
 using System;
 using System.Collections.Generic;
@@ -42,6 +44,18 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
 
             MockContext = new Mock<phototrailsEntities>();
             MockContext.Setup(c => c.trail).Returns(mockSet.Object);
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<trail, TrailDTO>();
+                cfg.CreateMap<trackpoint, TrackPointDTO>();
+            });
+        }
+
+        [TestMethod()]
+        public void MapperConfigurationValid()
+        {
+            Mapper.Configuration.AssertConfigurationIsValid();
         }
 
         [TestMethod()]
@@ -72,6 +86,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
             Assert.AreEqual(2, trail.id);
             Assert.AreEqual("ZZZ", trail.name);
             Assert.AreEqual("ZZZ description", trail.description);
+            Assert.IsNull(trail.duration);
         }
 
         [TestMethod()]

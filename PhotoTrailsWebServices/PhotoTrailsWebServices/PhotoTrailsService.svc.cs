@@ -23,7 +23,11 @@ namespace PhotoTrailsWebServices
         public static void Configure(ServiceConfiguration config)
         {
             config.LoadFromConfiguration();
-            Mapper.Initialize(cfg => cfg.CreateMap<trail, TrailDTO>());
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<trail, TrailDTO>();
+                cfg.CreateMap<trackpoint, TrackPointDTO>();
+            });
         }
 
         public List<TrailDTO> GetAllTrails()

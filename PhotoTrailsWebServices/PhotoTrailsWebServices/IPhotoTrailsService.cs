@@ -15,9 +15,13 @@ namespace PhotoTrailsWebServices
     {
 
         [OperationContract]
+        [WebGet(UriTemplate = "Trail",
+            ResponseFormat = WebMessageFormat.Json)]
         List<TrailDTO> GetAllTrails();
 
         [OperationContract]
+        [WebGet(UriTemplate = "Trail?id={id}",
+            ResponseFormat = WebMessageFormat.Json)]
         TrailDTO GetTrailById(long id);
 
     }

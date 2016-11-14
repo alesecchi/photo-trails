@@ -17,6 +17,9 @@ namespace PhotoTrailsWebServices
         [OperationContract]
         List<TrailDTO> GetAllTrails();
 
+        [OperationContract]
+        TrailDTO GetTrailById(long id);
+
     }
 
 

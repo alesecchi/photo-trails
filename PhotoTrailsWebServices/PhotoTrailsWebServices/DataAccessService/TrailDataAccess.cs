@@ -9,41 +9,43 @@ using System.Web;
 
 namespace PhotoTrailsWebServices.DataAccessService
 {
-    public class TrailDataAccess
+    public class TrailDataAccess : ITrailDataAccess
     {
         private readonly phototrailsEntities _context;
+        private readonly IMapper _mapper;
 
         public TrailDataAccess(phototrailsEntities context)
         {
             _context = context;
+            _mapper = Mapper.Configuration.CreateMapper();
         }
 
-        public List<trail> GetAllTrails()
+        public List<TrailDTO> GetAllTrails()
         {
             var query = from trail in _context.trail
                         orderby trail.name
                         select trail;
-            return query.ToList();
+            return query.ProjectToList<TrailDTO>();
         }
 
-        public async Task<List<trail>> GetAllTrailsAsync()
+        public async Task<List<TrailDTO>> GetAllTrailsAsync()
         {
             var query = from trail in _context.trail
                         orderby trail.name
                         select trail;
-            return await query.ToListAsync();
+            return await query.ProjectToListAsync<TrailDTO>();
         }
 
         public TrailDTO GetTrailById(long id)
         {
             trail trail = _context.trail.Find(id);
-            IMapper mapper = Mapper.Configuration.CreateMapper();
-            return mapper.Map<TrailDTO>(trail);
+            return _mapper.Map<TrailDTO>(trail);
         }
 
-        public async Task<trail> GetTrailByIdAsync(long id)
+        public async Task<TrailDTO> GetTrailByIdAsync(long id)
         {
-            return await _context.trail.FindAsync(id);
+            var trail = await _context.trail.FindAsync(id);
+            return _mapper.Map<TrailDTO>(trail);
         }
     }
 }

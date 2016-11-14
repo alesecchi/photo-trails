@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PhotoTrailsWebServices.DataAccessService;
 using PhotoTrailsWebServices.DataTransferObject;
 using PhotoTrailsWebServicesTest.DataAccessService;
 using System;
@@ -61,7 +62,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
         [TestMethod()]
         public void TrailByIdNotFound()
         {
-            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            ITrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trail = trailDataAccess.GetTrailById(10000);
 
             Assert.IsNull(trail);
@@ -70,7 +71,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
         [TestMethod()]
         public async Task TrailByIdAsyncNotFound()
         {
-            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            ITrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trail = await trailDataAccess.GetTrailByIdAsync(10000);
 
             Assert.IsNull(trail);
@@ -79,7 +80,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
         [TestMethod()]
         public void GetTrailById()
         {
-            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            ITrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trail = trailDataAccess.GetTrailById(2);
 
             Assert.IsNotNull(trail);
@@ -92,7 +93,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
         [TestMethod()]
         public async Task GetTrailByIdAsync()
         {
-            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            ITrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trail = await trailDataAccess.GetTrailByIdAsync(2);
 
             Assert.IsNotNull(trail);
@@ -104,7 +105,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
         [TestMethod()]
         public void GetAllTrails_OrderByName()
         {
-            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            ITrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trails = trailDataAccess.GetAllTrails();
 
             Assert.AreEqual(3, trails.Count);
@@ -119,7 +120,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
         [TestMethod()]
         public async Task GetAllTrailsAsync_OrderByName()
         {
-            TrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
+            ITrailDataAccess trailDataAccess = new TrailDataAccess(MockContext.Object);
             var trails = await trailDataAccess.GetAllTrailsAsync();
 
             Assert.AreEqual(3, trails.Count);

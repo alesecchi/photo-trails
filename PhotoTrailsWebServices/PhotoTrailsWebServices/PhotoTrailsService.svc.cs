@@ -32,8 +32,20 @@ namespace PhotoTrailsWebServices
 
         public List<TrailDTO> GetAllTrails()
         {
-            return new List<TrailDTO>();
+            using (phototrailsEntities context = new phototrailsEntities())
+            {
+                ITrailDataAccess trailDataAccess = new TrailDataAccess(context);
+                return trailDataAccess.GetAllTrails();
+            }
         }
 
+        public TrailDTO GetTrailById(long id)
+        {
+            using (phototrailsEntities context = new phototrailsEntities())
+            {
+                ITrailDataAccess trailDataAccess = new TrailDataAccess(context);
+                return trailDataAccess.GetTrailById(id);
+            }
+        }
     }
 }

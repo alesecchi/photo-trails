@@ -22,9 +22,9 @@ namespace PhotoTrailsWebServices.DataTransferObject
         public decimal longitude { get; set; }
 
         [DataMember]
-        public Nullable<short> elevation { get; set; }
+        public short? elevation { get; set; }
 
         [DataMember]
-        public DateTime date_time { get; set; }
+        public DateTime? date_time { get; set; }
     }
 }

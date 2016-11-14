@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PhotoTrailsWebServices.DataAccessService
 {
-    interface ITrailDataAccess
+    public interface ITrailDataAccess
     {
         List<TrailDTO> GetAllTrails();
 

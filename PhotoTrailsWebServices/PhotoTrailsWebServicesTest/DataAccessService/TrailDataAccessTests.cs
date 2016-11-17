@@ -26,7 +26,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
             TrailData = new List<trail>
             {
                 new trail { id=1, name="BBB", description="BBB description" },
-                new trail { id=2, name="ZZZ", description="ZZZ description" },
+                new trail { id=2, name="ZZZ", description="ZZZ description" , duration=new TimeSpan(1,30,0) },
                 new trail { id=3, name="AAA", description="AAA description" }
             }.AsQueryable();
 
@@ -48,8 +48,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
 
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<trail, TrailDTO>();
-                cfg.CreateMap<trackpoint, TrackPointDTO>();
+                cfg.AddProfile<AutomapperProfile>();
             });
         }
 
@@ -87,7 +86,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
             Assert.AreEqual(2, trail.id);
             Assert.AreEqual("ZZZ", trail.name);
             Assert.AreEqual("ZZZ description", trail.description);
-            Assert.IsNull(trail.duration);
+            Assert.AreEqual(5400,trail.duration);
         }
 
         [TestMethod()]
@@ -100,6 +99,7 @@ namespace PhotoTrailsWebServices.DataAccessService.Tests
             Assert.AreEqual(2, trail.id);
             Assert.AreEqual("ZZZ", trail.name);
             Assert.AreEqual("ZZZ description", trail.description);
+            Assert.AreEqual(5400, trail.duration);
         }
 
         [TestMethod()]

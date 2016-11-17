@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="DataAccessService\ITrailDataAccess.cs" />
     <Compile Include="DataAccessService\TrailDataAccess.cs" />
+    <Compile Include="DataTransferObject\AutomapperProfile.cs" />
     <Compile Include="DataTransferObject\TrackPointDTO.cs" />
     <Compile Include="DataTransferObject\TrailDTO.cs" />
     <Compile Include="PhotoTrailsDataModel.Context.cs">

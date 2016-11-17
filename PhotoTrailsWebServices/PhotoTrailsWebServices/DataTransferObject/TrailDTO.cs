@@ -19,7 +19,7 @@ namespace PhotoTrailsWebServices.DataTransferObject
         public string description { get; set; }
 
         [DataMember]
-        public TimeSpan? duration { get; set; }
+        public int? duration { get; set; }
 
         [DataMember]
         public List<TrackPointDTO> trackpoints { get; set; }

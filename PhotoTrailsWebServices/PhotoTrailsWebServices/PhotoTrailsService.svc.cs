@@ -25,8 +25,7 @@ namespace PhotoTrailsWebServices
             config.LoadFromConfiguration();
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<trail, TrailDTO>();
-                cfg.CreateMap<trackpoint, TrackPointDTO>();
+                cfg.AddProfile<AutomapperProfile>();
             });
         }
 

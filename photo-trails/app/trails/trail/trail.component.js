@@ -9,17 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var trail_model_1 = require('../shared/trail.model');
+var TrailComponent = (function () {
+    function TrailComponent() {
     }
-    AppComponent = __decorate([
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', trail_model_1.Trail)
+    ], TrailComponent.prototype, "trail", void 0);
+    TrailComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: '<pt-trails></pt-trails>'
+            moduleId: module.id,
+            selector: 'pt-trail',
+            templateUrl: 'trail.component.html',
+            styleUrls: ['trail.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], TrailComponent);
+    return TrailComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.TrailComponent = TrailComponent;
+//# sourceMappingURL=trail.component.js.map

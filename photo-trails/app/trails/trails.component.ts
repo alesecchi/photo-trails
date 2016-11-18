@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Trail } from './shared/trail.model';
-
-const TRAILS: Trail[] = [
-  { id: 1, name: 'Cenghen', description: 'Cascata Cenghen', duration: 5400}
-];
+import { TrailService } from './shared/trail.service';
 
 @Component({
   moduleId: module.id,
   selector: 'pt-trails',
-  templateUrl: 'trails.component.html'
+  templateUrl: 'trails.component.html',
+  providers: [TrailService]
 })
-export class TrailsComponent  {
-  trails = TRAILS;
+export class TrailsComponent implements OnInit  {
+  trails: Trail[];
+
+  constructor(private trailService: TrailService) { }
+
+  ngOnInit(): void {
+    this.trailService.getTrails().then(trails => this.trails = trails);
+  }
 }

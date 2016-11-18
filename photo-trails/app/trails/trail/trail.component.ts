@@ -9,6 +9,5 @@ import { Trail } from '../shared/trail.model';
     styleUrls: ['trail.component.css']
 })
 export class TrailComponent {
-    @Input()
-    trail: Trail
+    @Input() trail: Trail
 }

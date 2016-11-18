@@ -9,25 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var trail_service_1 = require('./shared/trail.service');
-var TrailsComponent = (function () {
-    function TrailsComponent(trailService) {
-        this.trailService = trailService;
+var mock_trails_1 = require('./mock-trails');
+var TrailService = (function () {
+    function TrailService() {
     }
-    TrailsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.trailService.getTrails().then(function (trails) { return _this.trails = trails; });
+    TrailService.prototype.getTrails = function () {
+        return Promise.resolve(mock_trails_1.TRAILS);
     };
-    TrailsComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'pt-trails',
-            templateUrl: 'trails.component.html',
-            providers: [trail_service_1.TrailService]
-        }), 
-        __metadata('design:paramtypes', [trail_service_1.TrailService])
-    ], TrailsComponent);
-    return TrailsComponent;
+    TrailService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], TrailService);
+    return TrailService;
 }());
-exports.TrailsComponent = TrailsComponent;
-//# sourceMappingURL=trails.component.js.map
+exports.TrailService = TrailService;
+//# sourceMappingURL=trail.service.js.map

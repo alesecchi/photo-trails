@@ -92,6 +92,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="PhotoTrailsDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PhotoTrailsDataModel.edmx</DependentUpon>
@@ -111,6 +112,9 @@
     <Compile Include="DataTransferObject\AutomapperProfile.cs" />
     <Compile Include="DataTransferObject\TrackPointDTO.cs" />
     <Compile Include="DataTransferObject\TrailDTO.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="PhotoTrailsDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

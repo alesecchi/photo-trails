@@ -9,16 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_trails_1 = require('./mock-trails');
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/toPromise');
 var TrailService = (function () {
-    function TrailService() {
+    function TrailService(http) {
+        this.http = http;
+        this.trailsUrl = 'http://localhost:59270/PhotoTrailsService.svc/Trail';
     }
     TrailService.prototype.getTrails = function () {
-        return Promise.resolve(mock_trails_1.TRAILS);
+        return this.http.get(this.trailsUrl)
+            .toPromise()
+            .then(function (response) { return response.json() || {}; });
     };
     TrailService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], TrailService);
     return TrailService;
 }());

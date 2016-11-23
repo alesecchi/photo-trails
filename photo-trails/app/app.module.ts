@@ -7,7 +7,8 @@ import { TrailComponent } from './trails/trail/trail.component'
 import { TrailsComponent } from './trails/trails.component'
 
 @NgModule({
-  imports:      [ BrowserModule ],
+  imports:      [ BrowserModule,
+                  HttpModule ],
   declarations: [ AppComponent,
                   TrailComponent,
                   TrailsComponent ],

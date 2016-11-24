@@ -14,6 +14,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var trail_component_1 = require('./trails/trail/trail.component');
 var trails_component_1 = require('./trails/trails.component');
+var map_component_1 = require('./map/map.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -22,9 +23,10 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule,
                 http_1.HttpModule],
             declarations: [app_component_1.AppComponent,
+                map_component_1.MapComponent,
                 trail_component_1.TrailComponent,
                 trails_component_1.TrailsComponent],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [app_component_1.AppComponent],
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

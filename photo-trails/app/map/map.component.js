@@ -9,17 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var MapComponent = (function () {
+    function MapComponent() {
     }
-    AppComponent = __decorate([
+    MapComponent.prototype.ngOnInit = function () {
+        var uluru = { lat: -25.363, lng: 131.044 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    };
+    MapComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: '<pt-map></pt-map>'
+            moduleId: module.id,
+            selector: 'pt-map',
+            templateUrl: 'map.component.html',
+            styleUrls: ['map.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], MapComponent);
+    return MapComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.MapComponent = MapComponent;
+//# sourceMappingURL=map.component.js.map

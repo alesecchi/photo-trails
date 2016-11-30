@@ -25,7 +25,9 @@ namespace PhotoTrailsWebServices.DataAccessService
             var query = from trail in _context.trail
                         orderby trail.name
                         select trail;
-            return query.ProjectToList<TrailDTO>();
+            List<TrailDTO> trailList = new List<TrailDTO>();
+            query.ToList<trail>().ForEach(trail => trailList.Add(_mapper.Map<TrailDTO>(trail)));
+            return trailList;
         }
 
         public async Task<List<TrailDTO>> GetAllTrailsAsync()

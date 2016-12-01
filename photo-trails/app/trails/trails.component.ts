@@ -11,10 +11,15 @@ import { TrailService } from './shared/trail.service';
 })
 export class TrailsComponent implements OnInit  {
   trails: Trail[];
+  selectedTrail: Trail;
 
   constructor(private trailService: TrailService) { }
 
   ngOnInit(): void {
     this.trailService.getTrails().then(trails => this.trails = trails);
+  }
+
+  onSelect(trail: Trail): void {
+    this.selectedTrail = trail;
   }
 }

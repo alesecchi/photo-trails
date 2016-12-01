@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/toPromise');
 var TrailService = (function () {
     function TrailService(http) {
@@ -19,7 +20,21 @@ var TrailService = (function () {
     TrailService.prototype.getTrails = function () {
         return this.http.get(this.trailsUrl)
             .toPromise()
-            .then(function (response) { return response.json() || {}; });
+            .then(function (response) { return response.json() || {}; })
+            .catch(this.handleError);
+    };
+    TrailService.prototype.handleError = function (error) {
+        var errMsg;
+        if (error instanceof http_1.Response) {
+            var body = error.json() || '';
+            var err = body.error || JSON.stringify(body);
+            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
+        }
+        else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable_1.Observable.throw(errMsg);
     };
     TrailService = __decorate([
         core_1.Injectable(), 

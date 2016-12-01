@@ -1,6 +1,9 @@
 <h2>Trails</h2>
 <ul class="trails">
-    <li *ngFor="let trail of trails">
+    <li *ngFor="let trail of trails" (click)="onSelect(trail)">
         <pt-trail [trail]=trail></pt-trail>
     </li>
 </ul>
+<div *ngIf="selectedTrail">
+    <pt-map [trail]="selectedTrail"></pt-map>
+</div>

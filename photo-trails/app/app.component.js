@@ -15,7 +15,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<pt-map></pt-map>'
+            template: '<pt-trails></pt-trails>'
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

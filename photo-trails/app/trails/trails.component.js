@@ -18,6 +18,9 @@ var TrailsComponent = (function () {
         var _this = this;
         this.trailService.getTrails().then(function (trails) { return _this.trails = trails; });
     };
+    TrailsComponent.prototype.onSelect = function (trail) {
+        this.selectedTrail = trail;
+    };
     TrailsComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

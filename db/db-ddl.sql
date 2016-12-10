@@ -22,15 +22,15 @@ DROP TABLE IF EXISTS `trackpoint`;
 
 CREATE TABLE `trackpoint` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `trail` int(10) unsigned NOT NULL,
+  `trail_id` int(10) unsigned NOT NULL,
   `order` smallint(5) unsigned NOT NULL,
   `latitude` decimal(8,6) NOT NULL,
   `longitude` decimal(9,6) NOT NULL,
   `elevation` smallint(6) DEFAULT NULL,
   `date_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_trail_trail_order` (`trail`,`order`),
-  CONSTRAINT `fk_trackpoint_trail_trail` FOREIGN KEY (`trail`) REFERENCES `trail` (`id`)
+  UNIQUE KEY `unique_trail_trail_order` (`trail_id`,`order`),
+  CONSTRAINT `fk_trackpoint_trail_id_trail` FOREIGN KEY (`trail_id`) REFERENCES `trail` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Table structure for table `trail` */
